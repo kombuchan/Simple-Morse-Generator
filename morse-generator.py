@@ -8,29 +8,27 @@ class node:
         self.right = None
     
 
-queue = deque()
+def insertValue(data, root, queue):
+    newNode = node(data)
+    if queue: temp = queue[0]
+    if root == None: root = newNode
 
-def insertValue(data, root):
-	newNode = node(data)
-	if queue: temp = queue[0]
-
-	if root == None: root = newNode
-
-	elif temp.left == None: temp.left = newNode
+    elif temp.left == None: temp.left = newNode
 	
-	elif temp.right == None:
-		temp.right = newNode
-		atemp = queue.popleft()
+    elif temp.right == None:
+        temp.right = newNode
+        queue.popleft()
 
-	queue.append(newNode)
-	return root
+    queue.append(newNode)
+    return root
 
 
 def createTree():
+    queue = deque()
     treeOrder = ".ETIANMSURWDKGOHVF-L-PJBXCYZQ--"
     root = None
     for i in range(len(treeOrder)): 
-        root = insertValue(treeOrder[i], root)
+        root = insertValue(treeOrder[i], root, queue)
     return root
 
 def dfs(node,target,path,morse):
